@@ -1,0 +1,41 @@
+name: Weekly Training Summary
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * 0"   # Runs Sundays 20:00 UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Pull Intervals data
+        env:
+          INTERVALS_API_KEY: ${{ secrets.INTERVALS_API_KEY }}
+          INTERVALS_ATHLETE_ID: "0"
+        run: python scripts/intervals_pull.py
+
+      - name: Build weekly report
+        run: python scripts/weekly_report.py
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data output
+          git commit -m "Weekly summary" || echo "No changes"
+          git push
