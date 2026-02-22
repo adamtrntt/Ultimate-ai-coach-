@@ -1,5 +1,8 @@
 name: Weekly Training Summary
 
+permissions:
+ contents: write
+
 on:
   workflow_dispatch:
   schedule:
