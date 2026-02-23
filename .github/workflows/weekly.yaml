@@ -35,6 +35,12 @@ jobs:
       - name: Build weekly report
         run: python scripts/weekly_report.py
 
+      - name: Generate AI coaching
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o-mini
+        run: python scripts/coach_weekly.py
+
       - name: Commit results
         run: |
           git config user.name "github-actions"
