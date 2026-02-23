@@ -3,7 +3,7 @@ from datetime import date
 from pathlib import Path
 import google.generativeai as genai
 
-MODEL = "gemini-1.5-flash"  # fast + cheap
+MODEL = "gemini-1.5-pro"  # fast + cheap
 # or: "gemini-1.5-pro" if you want stronger reasoning
 
 
