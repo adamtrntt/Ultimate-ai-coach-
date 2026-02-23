@@ -3,9 +3,7 @@ from datetime import date
 from pathlib import Path
 import google.generativeai as genai
 
-MODEL = "gemini-1.5-pro"  # fast + cheap
-# or: "gemini-1.5-pro" if you want stronger reasoning
-
+MODEL = "models/gemini-1.5-pro-latest"  
 
 def main():
     api_key = os.environ["GEMINI_API_KEY"]
