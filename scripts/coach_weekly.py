@@ -1,4 +1,4 @@
- import os
+import os
 from datetime import date
 from pathlib import Path
 import google.generativeai as genai
