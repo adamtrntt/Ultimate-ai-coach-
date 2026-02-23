@@ -1,54 +1,53 @@
-import os
+ import os
 from datetime import date
 from pathlib import Path
+import google.generativeai as genai
 
-from openai import OpenAI
-
-
-MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+MODEL = "gemini-1.5-flash"  # fast + cheap
+# or: "gemini-1.5-pro" if you want stronger reasoning
 
 
 def main():
-    client = OpenAI()  # uses OPENAI_API_KEY from env :contentReference[oaicite:2]{index=2}
+    api_key = os.environ["GEMINI_API_KEY"]
+    genai.configure(api_key=api_key)
+
+    model = genai.GenerativeModel(MODEL)
 
     today = date.today().isoformat()
     weekly_path = Path(f"output/weekly/weekly_{today}.md")
+
     if not weekly_path.exists():
-        raise FileNotFoundError(f"Missing {weekly_path}. Did weekly_report.py run?")
+        raise FileNotFoundError(f"{weekly_path} not found")
 
     weekly = weekly_path.read_text(encoding="utf-8")
 
-    prompt = f"""You are a data-driven endurance coach.
+    prompt = f"""
+You are a data-driven endurance coach.
 
 Athlete:
-- Current: triathlon training
-- Will switch to a marathon block mid-year
-- Wants practical guidance for the next 7 days
+- Currently training for triathlon
+- Will transition to marathon block mid-year
+- Based in Canberra
 
-Input summary:
+Here is the last 28-day training summary:
+
 {weekly}
 
-Return markdown with:
-1) Key takeaways (3-6 bullets)
-2) Risk flags (overload/imbalance/recovery)
-3) Next-week structure (Mon–Sun): swim/bike/run + intent (easy/quality/long)
-4) One focus metric to watch next week
+Provide markdown output with:
+
+1) Key takeaways
+2) Risk assessment
+3) Suggested next-week structure (Mon–Sun)
+4) One metric to monitor
 """
 
-    resp = client.chat.completions.create(
-        model=MODEL,
-        messages=[
-            {"role": "system", "content": "You are a conservative endurance coach. Do not prescribe unsafe training."},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.3,
-    )  # chat.completions.create is the documented call :contentReference[oaicite:3]{index=3}
-
-    out_text = resp.choices[0].message.content.strip()
+    response = model.generate_content(prompt)
+    coaching_text = response.text
 
     out_path = Path(f"output/weekly/coaching_{today}.md")
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(out_text + "\n", encoding="utf-8")
+    out_path.write_text(coaching_text)
+
     print(f"Wrote {out_path}")
 
 
