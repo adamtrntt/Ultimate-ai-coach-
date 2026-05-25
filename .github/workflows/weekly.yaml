@@ -1,12 +1,12 @@
 name: Weekly Training Summary
 
 permissions:
- contents: write
+  contents: write
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 10 * * 0"   # Runs Sundays 20:00 UTC
+    - cron: "0 10 * * 0"   # Runs Sundays 20:00 AEST (10:00 UTC)
 
 jobs:
   build:
@@ -37,7 +37,7 @@ jobs:
 
       - name: Generate AI coaching
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/coach_weekly.py
 
       - name: Commit results
@@ -46,5 +46,5 @@ jobs:
           git config user.email "actions@github.com"
           [ -d data ] && git add data || true
           [ -d output ] && git add output || true
-          git commit -m "Weekly summary" || echo "No changes"
+          git commit -m "Weekly summary $(date -u +%Y-%m-%d)" || echo "No changes"
           git push
