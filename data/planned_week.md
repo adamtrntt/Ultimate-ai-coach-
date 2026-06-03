@@ -1,6 +1,10 @@
-Planned week — w/c 2026-05-25
+Planned week — w/c 2026-06-01
 
-Mon: 5.5km easy run
-Wed: Tempo 5km run
+Mon: 500m warm-up
+     2x (1km @ 5:10, 1km @ 4:30)
+     500m cool-down
+Wed: 2km warm-up
+     4x (1km @ 4:30, 90s rest)
+     1km cool-down
 Thu: 5km easy run
-Sat: 15km progressive long run
+Sat: 17km long run
