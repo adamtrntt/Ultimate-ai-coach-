@@ -29,17 +29,17 @@ def main():
     athlete_id = os.getenv("INTERVALS_ATHLETE_ID", "0")
 
     newest = date.today()
-    oldest = newest - timedelta(days=28)
+    oldest = newest - timedelta(days=14)
 
     os.makedirs("data", exist_ok=True)
 
     activities = pull_activities(api_key, athlete_id, oldest, newest)
     wellness = pull_wellness(api_key, athlete_id, oldest, newest)
 
-    with open("data/activities_28d.json", "w", encoding="utf-8") as f:
+    with open("data/activities_14d.json", "w", encoding="utf-8") as f:
         json.dump(activities, f, indent=2)
 
-    with open("data/wellness_28d.json", "w", encoding="utf-8") as f:
+    with open("data/wellness_14d.json", "w", encoding="utf-8") as f:
         json.dump(wellness, f, indent=2)
 
     print(f"Saved {len(activities)} activities and {len(wellness)} wellness records.")

@@ -35,8 +35,8 @@ def summarize_by_sport(activities: list[dict]) -> list[str]:
 
 
 def main():
-    activities = load_json("data/activities_28d.json")
-    wellness = load_json("data/wellness_28d.json")
+    activities = load_json("data/activities_14d.json")
+    wellness = load_json("data/wellness_14d.json")
 
     out_dir = Path("output/weekly")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -46,10 +46,10 @@ def main():
     md = []
     md.append(f"# Weekly Summary ({today})")
     md.append("")
-    md.append("## Last 28 days (by sport)")
+    md.append("## Last 14 days (by sport)")
     md.extend(summarize_by_sport(activities))
     md.append("")
-    md.append("## Wellness records (last 28 days)")
+    md.append("## Wellness records (last 14 days)")
     md.append(f"- Records: {len(wellness)}")
     md.append("")
 

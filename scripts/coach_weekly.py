@@ -29,8 +29,8 @@ def main():
     today = date.today()
     today_str = today.isoformat()
     weekly_path = Path(f"output/weekly/weekly_{today_str}.md")
-    activities_path = Path("data/activities_28d.json")
-    wellness_path = Path("data/wellness_28d.json")
+    activities_path = Path("data/activities_14d.json")
+    wellness_path = Path("data/wellness_14d.json")
     planned_week_path = Path("data/planned_week.md")
 
     if not weekly_path.exists():
@@ -41,11 +41,11 @@ def main():
     # Raw data blocks
     activities_block = ""
     if activities_path.exists():
-        activities_block = f"\n\n### Raw activity data (28 days)\n```json\n{load_json(activities_path)}\n```"
+        activities_block = f"\n\n### Raw activity data (14 days)\n```json\n{load_json(activities_path)}\n```"
 
     wellness_block = ""
     if wellness_path.exists():
-        wellness_block = f"\n\n### Raw wellness data (28 days)\n```json\n{load_json(wellness_path)}\n```"
+        wellness_block = f"\n\n### Raw wellness data (14 days)\n```json\n{load_json(wellness_path)}\n```"
 
     # Planned week from Runna
     planned_block = ""
@@ -97,6 +97,8 @@ Frame these around what the data is telling you and the sub-3:30 goal.
 
 ### 4. One metric to monitor
 The single most important metric to watch this coming week and why.
+
+All analysis must stay within the last 14 days of data — do not reference or compare against earlier periods.
 
 Keep language direct and coach-like. Use markdown. Be specific — reference actual numbers from the data.
 """
