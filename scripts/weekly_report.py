@@ -34,6 +34,14 @@ def summarize_by_sport(activities: list[dict]) -> list[str]:
     return lines
 
 
+def clean_previous_weeks(out_dir: Path, keep_date: str) -> None:
+    """Delete weekly/coaching reports from previous weeks, keeping only keep_date."""
+    for f in out_dir.glob("*.md"):
+        if keep_date not in f.name:
+            f.unlink()
+            print(f"Removed previous week: {f}")
+
+
 def main():
     activities = load_json("data/activities_14d.json")
     wellness = load_json("data/wellness_14d.json")
@@ -42,6 +50,8 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     today = date.today().isoformat()
+
+    clean_previous_weeks(out_dir, today)
 
     md = []
     md.append(f"# Weekly Summary ({today})")
