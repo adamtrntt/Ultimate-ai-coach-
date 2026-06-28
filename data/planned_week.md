@@ -1,11 +1,10 @@
-Planned week — w/c 2026-06-22
+Planned week — w/c 2026-06-29
 
-Mon: 5.5km easy run
-Wed: 7km progressive run
+Mon: 2km easy
+     4 x 1km @ 4:20, 90s rest
      1km easy
-     1km @ 5:10
-     1km @ 4:50
-     1km @ 4:35
-     1km @ 4:25
-Thu: 5km easy run
-Sat: 12km long run, conversational pace
+Wed: 1km easy
+     3 x 1km @ 4:50, 1km @ 4:30
+     90s rest
+Thu: 8km easy run
+Sat: 24km long run
